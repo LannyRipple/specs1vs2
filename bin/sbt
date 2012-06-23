@@ -1,0 +1,15 @@
+#!/bin/bash
+
+VERSION=0.11.3-2
+
+if [ ! -f bin/sbt-launch.jar ]; then
+    curl -o bin/sbt-launch.jar http://typesafe.artifactoryonline.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/$VERSION/sbt-launch.jar
+fi
+
+exec java \
+    -Dfile.encoding=UTF8 \
+    -Xmx768M \
+    -Xss1M \
+    -XX:+CMSClassUnloadingEnabled \
+    -XX:MaxPermSize=256M \
+    -jar bin/sbt-launch.jar ${1+"$@"}

@@ -1,0 +1,11 @@
+.idea
+.idea_modules
+*.iml
+*.ims
+*.ipr
+build
+target/
+.project
+.classpath
+.settings
+bin/sbt-launch.jar
