@@ -4,22 +4,24 @@ import java.io._
 
 import org.apache.hadoop.fs
 
-import org.specs.SpecificationWithJUnit
+import org.specs2.mutable._
+import org.specs2.specification._
 
 class TestHdfs extends SpecificationWithJUnit {
 
-  doBeforeSpec {
-    HdfsTestCluster.start()
-  }
+  override
+  def map(fs: => Fragments): Fragments = {
+    val dbs = Step {
+      HdfsTestCluster.start()
+    }
+    val das = Step {
+      HdfsTestCluster.shutdown()
+    }
 
-  doAfterSpec {
-    HdfsTestCluster.shutdown()
+    dbs ^ fs ^ das
   }
-
-  def step[A](body: => A): A = body.isExpectation
 
   "HDFS" should {
-    setSequential()
 
     val dfs = HdfsTestCluster.getFileSystem
     val path = new fs.Path("input")
@@ -40,7 +42,7 @@ class TestHdfs extends SpecificationWithJUnit {
 
       len must be_>(0)
 
-      val str = new String(buf.slice(0,len-1), "UTF-8")
+      val str = new String(buf.slice(0, len - 1), "UTF-8")
 
       str mustEqual "xyzzy"
     }

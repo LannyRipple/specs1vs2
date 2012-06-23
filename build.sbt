@@ -10,7 +10,7 @@ scalacOptions ++= Seq("-deprecation", "-unchecked")
 
 resolvers ++= Seq(
   "Cloudera" at "https://repository.cloudera.com/artifactory/cloudera-repos/",
-  "Scala-Tools" at "https://oss.sonatype.org/content/groups/scala-tools/"
+  "OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
 )
 
 libraryDependencies ++= {
@@ -21,6 +21,6 @@ libraryDependencies ++= {
     "org.apache.hadoop" % "hadoop-core" % V.hadoop,
     "org.apache.hadoop" % "hadoop-test" % V.hadoop % "test",
     "junit" % "junit" % "4.10" % "test",
-    "org.scala-tools.testing" %% "specs" % "1.6.9" % "test"
+    "org.specs2" %% "specs2" % "1.12-SNAPSHOT" % "test"
   )
 }
